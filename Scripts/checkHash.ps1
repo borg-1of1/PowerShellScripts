@@ -42,7 +42,7 @@
 
 [CmdletBinding()] 
 param(
-    [Paramater(Mandatory)] # This line makes the following parameter a required entry for the command to execute
+    [Paramater(Mandatory)] 
     [string]$recievedFile, # restricts the input to a string value
     [Paramater(Mandatory)]
     [string]$ReferenceHash, 
