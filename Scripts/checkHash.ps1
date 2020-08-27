@@ -1,12 +1,4 @@
-﻿###################################################################################
-# Author:           MJC
-# Date (Original):  7/21/20  
-# Description:      Script for checking the hash of recieved files.  Prameters are the 
-# recieved file name and path (Recomend running form same location as file), the 
-# expected hash for the file, and the algorithm used to generate the hash. The 
-# default algorithm is SHA256.
-###################################################################################
-<#
+﻿<#
 .SYNOPSIS
     Returns true if the hash supplied matches the calculated has value for a file.
 
@@ -43,7 +35,8 @@
     PSCustomObject
 
 .NOTES
-    Author:  Mike Conway    
+    Author: Mike Conway 
+    Date:   7/21/20 (Original)   
 #>
 
 
