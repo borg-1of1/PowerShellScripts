@@ -42,9 +42,9 @@
 
 [CmdletBinding()] 
 param(
-    [Paramater(Mandatory)] 
+    [Parameter(Mandatory)] 
     [string]$recievedFile, # restricts the input to a string value
-    [Paramater(Mandatory)]
+    [Parameter(Mandatory)]
     [string]$ReferenceHash, 
     [string]$alg = "SHA256"
 )
