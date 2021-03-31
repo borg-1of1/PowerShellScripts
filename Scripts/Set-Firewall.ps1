@@ -23,4 +23,4 @@
     
 #>
 
-New-NetFirewallRule -DisplayName "Manage Engine Control Ports" -Direction inbound -LocalPort 8444,8032,8443,8031 -Protocol TCP -Action Allow 
+New-NetFirewallRule -DisplayName "Manage Engine Control Ports" -Direction inbound -LocalPort 8444,8032,8443,8031,8027,8383 -Protocol TCP -Action Allow 
