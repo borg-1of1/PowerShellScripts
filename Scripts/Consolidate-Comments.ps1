@@ -3,11 +3,12 @@
     Consolidates multiple CRM files into one CRM file.
 
 .DESCRIPTION
-    Before running the script you need to make sure you run Connect-MicrosoftTeams and Connect-ExchangeOnline.
-    Script is provided as is an no warenty is made.  Use at your own risk.
+    Before running this script, ensure that all files you wish to consolidate are located int he same directory 
+    and that there is no existing file already in the destination directory with the same name.  Use of this script
+    is at your own risk.
     
 .EXAMPLE
-     .\Get-TeamsInfo.ps1 
+     .\Consolidate-Comments.ps1 
 
 .INPUTS
     String
@@ -19,10 +20,10 @@
     Author: Gareth Jayne 
     Date:   5/19/20 (Original) 
     Modifications: Michael Conway
-    Date:   2/12/21  
+    Date:   6/8/21  
 
 .CHANGES
-    Added Where-Object to locate Teams with "FLRAA" in the DisplayName to limit the number of Teams returned by the Get-Team command.
+    
 #>
 
 # This represents the path you want the results file to be saved to.  You can change this to the location of your choice.
