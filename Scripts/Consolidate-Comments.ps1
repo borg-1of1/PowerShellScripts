@@ -45,23 +45,23 @@ $files = Get-ChildItem -Path $sourceFilesPath
 
 # Create a new Excel instance 
 $dest = $Excel.Workbooks.Add()
-$row =
+#$row =
 foreach ($file in $files)
 {
     $source = $Excel.Workbooks.Open($file.FullName,$true,$true)
     If(($Dest.ActiveSheet.UsedRange.Count -eq 1) -and ([String]::IsNullOrEmpty($Dest.ActiveSheet.Range("A1").Value2)))
     { 
         #If there is only 1 used cell and it is blank select A1 - This grabs the column headings so that a preexisting spreadsheet does not need to be created
-        [void]$source.ActiveSheet.Range("A1","F$(($Source.ActiveSheet.UsedRange.Rows|Select -Last 1).Row)").Copy()
+        [void]$source.ActiveSheet.Range("A1","F$(($Source.ActiveSheet.UsedRange.Rows|Select-Object -Last 1).Row)").Copy()
         [void]$Dest.Activate()
         [void]$Dest.ActiveSheet.Range("A1").Select()
     }
     Else
     { 
         #If there is data go to the next empty row and select Column A
-        [void]$source.ActiveSheet.Range("A2","F$(($Source.ActiveSheet.UsedRange.Rows|Select -Last 1).Row)").Copy()
+        [void]$source.ActiveSheet.Range("A2","F$(($Source.ActiveSheet.UsedRange.Rows|Select-Object -Last 1).Row)").Copy()
         [void]$Dest.Activate()
-        [void]$Dest.ActiveSheet.Range("A$(($Dest.ActiveSheet.UsedRange.Rows|Select -last 1).row+1)").Select()
+        [void]$Dest.ActiveSheet.Range("A$(($Dest.ActiveSheet.UsedRange.Rows|Select-Object -last 1).row+1)").Select()
     }
     [void]$Dest.ActiveSheet.Paste()
     $Source.Close()
