@@ -22,7 +22,7 @@
     ToDo:   Create paramaters, pass directory as variable, pass file to be created as variable  
 #>
 
-cd "C:\Users\micha\Downloads\DogPoopNaighbors"
+Set-Location -Path "C:\Users\micha\Downloads\DogPoopNaighbors"
 $fileList = Get-ChildItem -Path "C:\Users\micha\Downloads\DogPoopNaighbors"
 
 if(Test-Path -Path "C:\Users\micha\Downloads\DogPoopNaighborsHash.txt"){
