@@ -36,7 +36,7 @@ $timeout = New-TimeSpan -Hours $timespan
 $sw = [diagnostics.stopwatch]::StartNew()
 
 while ($sw.Elapsed -lt $timeout){
-    $dummyshell.Sendkeys(".")
+    $dummyshell.Sendkeys(".") > null 
     Start-Sleep -Seconds 240
 }
 
