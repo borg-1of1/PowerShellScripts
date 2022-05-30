@@ -23,7 +23,7 @@
 #>
 
 Set-Location -Path "C:\Users\micha\Downloads\DogPoopNaighbors"
-$fileList = Get-ChildItem -Path "C:\Users\micha\Downloads\DogPoopNaighbors"
+#$fileList = Get-ChildItem -Path "C:\Users\micha\Downloads\DogPoopNaighbors"
 
 if(Test-Path -Path "C:\Users\micha\Downloads\DogPoopNaighborsHash.txt"){
      $hashFile = Get-Item -Path "C:\Users\micha\Downloads\DogPoopNaighborsHash.txt"     
@@ -32,6 +32,9 @@ else{
     $hashFile = New-Item -Path "C:\Users\micha\Downloads\DogPoopNaighborsHash.txt"
 }
 
-foreach ($file in $fileList){
-    Get-FileHash -Path $file -Algorithm SHA256 | Add-Content $hashFile
-}
+#foreach ($file in $fileList){
+#    Get-FileHash -Path $file -Algorithm SHA256 | Add-Content $hashFile
+#}
+# Replaced above lines with below.  Using Get-ChildItem -Recurse allows for grabbing any 
+# files in a directory as well without having to do a foreach loop
+Get-ChildItem -Recurse | Get-FileHash -Algorithm SHA256 | Add-Content $hashFile
