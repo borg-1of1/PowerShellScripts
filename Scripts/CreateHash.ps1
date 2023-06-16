@@ -22,16 +22,20 @@
     ToDo:   Create paramaters, pass directory as variable, pass file to be created as variable  
 #>
 
-Set-Location -Path "C:\Users\micha\Downloads\DogPoopNaighbors"
-$fileList = Get-ChildItem -Path "C:\Users\micha\Downloads\DogPoopNaighbors"
+Set-Location -Path "C:\Users\micha\Desktop\Recovered Files"
+$fileList = Get-ChildItem -Path "C:\Users\micha\Desktop\Recovered Files"
 
-if(Test-Path -Path "C:\Users\micha\Downloads\DogPoopNaighborsHash.txt"){
-     $hashFile = Get-Item -Path "C:\Users\micha\Downloads\DogPoopNaighborsHash.txt"     
+if(Test-Path -Path "C:\Users\micha\Desktop\Hash.txt"){
+     $hashFile = Get-Item -Path "C:\Users\micha\Desktop\Hash.txt"     
 }
 else{
-    $hashFile = New-Item -Path "C:\Users\micha\Downloads\DogPoopNaighborsHash.txt"
+    $hashFile = New-Item -Path "C:\Users\micha\Desktop\Hash.txt"
 }
 
-foreach ($file in $fileList){
-    Get-FileHash -Path $file -Algorithm SHA256 | Add-Content $hashFile
-}
+#foreach ($file in $fileList){
+#    Get-FileHash $file -Algorithm SHA256 | Select-Object 
+#    Get-Content -Path $hashFile
+    #Get-FileHash -Path $file -Algorithm MD5 | Add-Content $hashFile
+#}
+
+Get-FileHash -Path $fileList | Select-Object -Property Hash | Out-File $hashFile
