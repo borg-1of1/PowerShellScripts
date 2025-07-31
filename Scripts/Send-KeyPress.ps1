@@ -41,4 +41,4 @@ while ($sw.Elapsed -lt $timeout){
 }
 
 $sw.Stop()
-$dummyshell.Quit()
+#Exit
