@@ -1,12 +1,14 @@
 <#
 .SYNOPSIS
-    Returns and insult int he Shakespearian style
+    Returns Player order and benefits for a turn supporting the Cheese Stands Alone EDH varient.
 
 .DESCRIPTION
-    Gerneates 3 random numbers between 1 and 10.  It then slects a word based off of those numbers and displays a string in the format "Thou <list 1 word>, <List 2 Word>, <list 3 word>!"
+    This script generates a random turn order for a specified number of players in a game, along with a benefit and condition for the turn.
+    The benefit and condition are randomly selected from predefined options.    
+
     
 .EXAMPLE
-    create-insult
+    Set-TurnOrder.ps1 -numPlayers 4
 
 .INPUTS
     String
@@ -19,8 +21,8 @@
     Date:   7/10/23 (Original)   
 #>
 param(
-    [Parameter(Mandatory=$false)]
-    [int]$numPlayers = 4
+    [Parameter(Mandatory=$true)]
+    [Int32]$numPlayers = 4
 )
 if($numPlayers -lt 2){
     Write-Error "You must have at least 2 players to set a turn order"
@@ -31,45 +33,57 @@ if($numPlayers -gt 6){
     return
 }
 
-
-
 function get-number{
-    Get-Random -Minimum 1 -Maximum 10
+    Get-Random -Minimum 1 -Maximum $numPlayers
 }
 
-function Get-FirstWord{
-    $resultNumb = get-number
+function Get-PlayerOrder{
+    param(       
+        [int]$numPlayers = 4
+    )
+    $result = @()    
+    $players = @(1..$numPlayers)
+    while ($result.Count -lt $numPlayers) {
+        $randomIndex = Get-Random -Minimum 0 -Maximum $players.Count
+        $result += $players[$randomIndex]
+        $players = $players | Where-Object { $_ -ne $players[$randomIndex] } # Remove the selected player from the list
+        
+    }       
     
-    $result = switch ($resultNumb){
-        1 {"goatish"}
-        2 {"mangled"}
-        3 {"puny"}
-        4 {"roguish"}
-        5 {"reeky"}
-        6 {"saucy"}
-        7 {"weedy"}
-        8 {"yeasty"}
-        9 {"villanous"}
-        10 {"gleeking"}  
-        Default{
-            "No Words for this"
-        }         
-    }
     return $result
 }
-function Get-SecondWord{
+function Get-Benefit{
     $resultNumb = get-number
     $result = switch ($resultNumb){
-        1 {"beef-witted"}
-        2 {"clay-brained"}
-        3 {"elf-skinned"}
-        4 {"hedge-born"}
-        5 {"milk-livered"}
-        6 {"fly-bitten"}
-        7 {"rump-fed"}
-        8 {"toad-spotted"}
-        9 {"weather-bitten"}
-        10 {"fool-born"} 
+        1 {"+1/+1"}
+        2 {"+1/+0"}
+        3 {"+0/+1"}
+        4 {"creatures you control have hexproof"}
+        5 {"creatures you control have vigilance"}
+        6 {"creatures you control have trample"}
+        7 {"creatures you control have menace"}
+        8 {"creatures you control have lifelink"}
+        9 {"creatures you control have deathtouch"}
+        10 {"creatures you control have indestructible"} 
+        11 {"creatures you control have reach"}
+        12 {"creatures you control have flying"}
+        13 {"creatures you control have haste"}
+        14 {"creatures you control have protection from black"}
+        15 {"creatures you control have protection from red"}   
+        16 {"creatures you control have protection from white"}
+        17 {"creatures you control have protection from green"}
+        18 {"creatures you control have protection from blue"}
+        19 {"creatures you control have protection from artifacts"}
+        20 {"creatures you control have protection from multicolored"}
+        21 {"creatures you control have protection from colorless"}
+        22 {"creatures you control have protection from enchantments"}
+        23 {"creatures you control have protection from planeswalkers"}
+        24 {"creatures you control have protection from instants"}
+        25 {"creatures you control have protection from sorceries"}
+        26 {"creatures you control have protection from abilities"}
+        27 {"creatures you control have protection from spells"}
+        28 {"creatures you control have protection from combat damage"}
+        29 {"creatures you control have shroud"}
         Default{
             "No Words for this"
         }  
@@ -77,19 +91,15 @@ function Get-SecondWord{
     return $result
 }
 
-function Get-ThirdWord{
+function Get-Condition{
     $resultNumb = get-number
     $result = switch ($resultNumb){
-        1 {"barnacle"}
-        2 {"boar-pig"}
-        3 {"bum-bailey"}
-        4 {"clotpole"}
-        5 {"foot-licker"}
-        6 {"horn-beast"}
-        7 {"maggot-pie"}
-        8 {"malt-worm"}
-        9 {"pumpion"}
-        10 {"whey-face"}        
+        1 {"Until end of turn"}
+        2 {"Unitl a new Cheese is chosen"}
+        3 {"Until your next upkeep"}
+        4 {"Until your next draw step"}
+        5 {"Until your next end step"}       
+                
         Default{
             "No Words for this"
         }        
@@ -97,7 +107,10 @@ function Get-ThirdWord{
     return $result
 }
 
-$word1 = Get-FirstWord
-$word2 = Get-SecondWord
-$word3 = Get-ThirdWord
-Write-Output ("Thou {0}, {1}, {2}!"-f $word1,$word2,$word3)
+$order = @(Get-PlayerOrder -numPlayers $numPlayers)
+$word2 = Get-Benefit -numPlayers "29"
+$word3 = Get-Condition -numPlayers "5"
+Write-Output "Player order is: $($order -join ', ')"
+Write-Output "The benefit is: $word2"
+Write-Output "The condition is: $word3"
+
