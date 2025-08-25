@@ -22,8 +22,8 @@
     ToDo:   Create paramaters, pass directory as variable, pass file to be created as variable  
 #>
 
-Set-Location -Path "C:\Users\micha\Desktop\Recovered Files"
-$fileList = Get-ChildItem -Path "C:\Users\micha\Desktop\Recovered Files"
+Set-Location -Path "C:\Users\micha\Downloads\"
+$fileList = Get-ChildItem -Path "C:\Users\micha\Downloads\"
 
 if(Test-Path -Path "C:\Users\micha\Desktop\Hash.txt"){
      $hashFile = Get-Item -Path "C:\Users\micha\Desktop\Hash.txt"     
@@ -38,4 +38,4 @@ else{
     #Get-FileHash -Path $file -Algorithm MD5 | Add-Content $hashFile
 #}
 
-Get-FileHash -Path $fileList | Select-Object -Property Hash | Out-File $hashFile
+Get-FileHash -Path $fileList  -Algorithm SHA256| Select-Object -Property Hash | Out-File $hashFile
