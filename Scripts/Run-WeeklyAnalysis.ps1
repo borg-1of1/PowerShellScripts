@@ -12,9 +12,9 @@ param (
 
 try {
     # --- Configuration Section ---
-    $rootPath = "C:\Users\ConwayMJ\OneDrive - US Army\Documents\EmailAnalysis"
+    $rootPath = "C:\Users\<my_directory>\OneDrive\Documents\EmailAnalysis"
     $scriptsFolderName  = "Scripts"
-    $outlookFolderPath  = "\\michael.j.conway18.ctr@army.mil\Inbox\DC3 DCISE Reports"
+    $outlookFolderPath  = "\\my_email\Inbox\DC3 DCISE Reports"
 
     # --- Dynamic Path and Filename Generation ---
     # Calculate the target Friday to use for the filenames.
@@ -68,3 +68,4 @@ catch {
     Write-Error "A critical error occurred in the master script: $_.ToString()"
     throw
 }
+
